@@ -5,8 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -19,7 +17,4 @@ public class Address {
     private Long id;
     private String city;
     private String area;
-
-    @OneToMany(mappedBy = "address")
-    private List<UserAddress> users = new ArrayList<>();
 }

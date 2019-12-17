@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.Collections;
 
-//@Component
+@Component
 public class DataLoader implements CommandLineRunner {
 
     private final UserRepository userRepository;
@@ -27,8 +27,6 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
-
 
         User userChild = new User();
         userChild.setName("Snehal shelke");
@@ -53,7 +51,7 @@ public class DataLoader implements CommandLineRunner {
         addressRepository.save(address1);
         System.out.println("########## - Added Address - ##########");
 
-        UserAddress userAddress = new UserAddress(user1, address1, LocalDate.now().minusYears(2), LocalDate.now());
+        UserAddress userAddress = new UserAddress(2L, user1, address1, LocalDate.now().minusYears(2), LocalDate.now());
         userAddressRepository.save(userAddress);
         System.out.println("########## - Added UserAddress - ##########");
 

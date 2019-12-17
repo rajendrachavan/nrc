@@ -1,11 +1,9 @@
 package neo.demo.springboot.nrc.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDate;
 
 
@@ -14,20 +12,9 @@ import java.time.LocalDate;
 @Entity
 public class UserAddress {
 
-    @Embeddable
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class UserAddressId implements Serializable {
-
-        @Column(name = "userId")
-        protected Long userId;
-        @Column(name = "addressId")
-        protected Long addressId;
-    }
-
-    @EmbeddedId
-    private UserAddressId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "userId", insertable = false, updatable = false)
@@ -40,18 +27,16 @@ public class UserAddress {
     private LocalDate livingFrom;
     private LocalDate lastLivingDate;
 
-    public UserAddress(User user, Address address, LocalDate livingFrom, LocalDate lastLivingDate) {
-        //Creation of primary key.
-        this.id = new UserAddressId(user.getId(), address.getId());
+    public UserAddress(Long id, User user, Address address, LocalDate livingFrom, LocalDate lastLivingDate) {
 
         //Intializing Attributes.
+        this.id = id;
         this.user = user;
         this.address = address;
         this.livingFrom = livingFrom;
         this.lastLivingDate = lastLivingDate;
 
         //Updating relationships to ensure referential integrity.
-        address.getUsers().add(this);
         user.getAddressList().add(this);
     }
 }
